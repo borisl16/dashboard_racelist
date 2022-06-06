@@ -1,8 +1,8 @@
 # Run app in terminal
 
-`
+```
 node app.js
-`
+```
 
 ## Context
 
