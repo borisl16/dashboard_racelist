@@ -1,13 +1,12 @@
-if (process.argv[2] === undefined) {
-    const dataEvent = require('./data_event.json');
+const dataEvent = require('./data_event.json');
 
+if (process.argv[2] === undefined) {
     let organiserId = Array.from(new Set(dataEvent.map(({
         organiserId
     }) => organiserId)));
 
     console.log(`Please select your Organiser ID/s form the list: \n ${organiserId}`)
 } else {
-    const dataEvent = require('./data_event.json');
     const organiserId = process.argv[2].split(',');
 
     organiserId.forEach(id => {
