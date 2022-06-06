@@ -1,33 +1,34 @@
-const dataEvent = require('./data_event.json');
+if (process.argv[2] === undefined) {
+    const dataEvent = require('./data_event.json');
 
-let organiserId = Array.from(new Set(dataEvent.map(({
-    organiserId
-}) => organiserId)));
+    let organiserId = Array.from(new Set(dataEvent.map(({
+        organiserId
+    }) => organiserId)));
 
-organiserId.forEach(element => {
-    data(dataEvent, element);
-});
+    console.log(`Please select your Organiser ID/s form the list: \n ${organiserId}`)
+} else {
+    const dataEvent = require('./data_event.json');
+    const organiserId = process.argv[2].split(',');
 
+    organiserId.forEach(id => {
 
-function data(dataEvent, id) {
+        const dataEventId = dataEvent.filter((e) => {
+            return e.organiserId === parseInt(id)
+        })
 
-    const dataEventId = dataEvent.filter((e) => {
-        return e.organiserId === id
-    })
+        const total = dataEventId.reduce((currentTotal, e) => {
+        return e.ticketPrice["value"] + currentTotal
+        }, + 0)
 
-//calculation for total profit by organiser Id
-    const total = dataEventId.reduce((currentTotal, e) => {
-    return e.ticketPrice["value"] + currentTotal
-    }, + 0)
+        let eventsDetails = "";
+        for(let event of dataEventId) {
+            eventsDetails += `${event.eventTitle} [ £${event.ticketPrice.value} ] \n`
+        }
 
-//extracting all events + prices
-    let eventsDetails = "";
-    for(let event of dataEventId) {
-        eventsDetails += `${event.eventTitle} [ £${event.ticketPrice.value} ] \n`
-    }
+        console.log("[Organiser Id]: " + id + '\n')
+        console.log("[Events and Prices]: " + '\n' + eventsDetails)
+        console.log("[Total]: £" + total + '\n' + '\n')
+        console.log("_____________________________________")
 
-    console.log("[Organiser Id]: " + id + '\n')
-    console.log("[Events and Prices]: " + '\n' + eventsDetails)
-    console.log("[Total]: £" + total + '\n' + '\n')
-    console.log("_____________________________________")
-};
+    });
+}
