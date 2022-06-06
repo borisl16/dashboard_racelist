@@ -19,7 +19,7 @@ You have been asked to build a dashboard that makes it easy for for organisers t
 
 ### Comments
 
-If you like to see the events organised by more then one Organiser write Organisers' ID as a string with coma:
+If you like to see the events organised by more than one Organiser write Organisers' ID as a string with coma:
 ```
 node app.js "'26391, 69173, 154979'
 ```
